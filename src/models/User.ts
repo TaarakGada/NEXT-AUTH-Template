@@ -6,8 +6,6 @@ export interface User extends Document {
     password: string;
     verificationCode: string;
     verified: boolean;
-    createdAt: Date;
-    updatedAt: Date;
 }
 
 const userSchema: Schema<User> = new Schema({
@@ -35,12 +33,8 @@ const userSchema: Schema<User> = new Schema({
         type: Boolean,
         default: false,
     },
-    createdAt: {
-        type: Date,
-        default: Date.now,
-    },
-    updatedAt: {
-        type: Date,
-        default: Date.now,
-    },
 }, { timestamps: true });
+
+const userModel = (mongoose.models.User as mongoose.Model<User>) || mongoose.model<User>('User', userSchema);
+
+export default userModel;
